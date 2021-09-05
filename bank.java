@@ -1,38 +1,72 @@
 import java.util.Scanner;
 
-public class bank {
-    public static void main(String[] args) {
-        char choice, w;
-        double acc_no, amount, balance, deposit, withdraw;
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter the name = ");
-        String name = input.next();
-        System.out.print("Enter the Account type(Savings or Current Account) = ");
-        String acc_type = input.next();
-        System.out.print("Enter the Bank Name = ");
-        String bank_name = input.next();
-        System.out.print("Enter the Account Number = ");
-        acc_no = input.nextDouble();
-        System.out.print("Enter the Amount = ");
-        amount = input.nextDouble();
+class bal {
+    Scanner scan = new Scanner(System.in);
+    double min_bal, saving_bal;
+
+    void balance(int m, int s) {
+        min_bal = m;
+        saving_bal = s;
+        System.out.println("Minimum Balance = " + min_bal);
+        System.out.println("Saving Balance = " + saving_bal);
+    }
+};
+
+class account extends bal {
+    String name, acc_type, bank_name;
+    double amount, acc_no;
+
+    void details() {
+        System.out.print("Enter the name :");
+        name = scan.next();
+        System.out.print("Enter the bank name :");
+        bank_name = scan.next();
+        System.out.print("Enter the account number = ");
+        acc_no = scan.nextDouble();
+        System.out.print("Enter the account type(current or savings) : ");
+        acc_type = scan.next();
+        System.out.print("Enter the amount : ");
+        amount = scan.nextDouble();
+    }
+};
+
+class calc extends account {
+    char w, d, choice;
+    double deposit, withdraw, bal;
+
+    void display() {
         System.out.println("Name : " + name);
         System.out.println("Bank Name : " + bank_name);
-        System.out.println("Account number : " + acc_no);
-        System.out.println("Account type : " + acc_type);
+        System.out.println("Account Number : " + acc_no);
+        System.out.println("Account Type : " + acc_type);
         System.out.println("Amount : " + amount);
-        System.out.println("Enter the amount to be deposited or withdraw : ");
-        System.out.print("Enter W for withdraw and D for Deposit :");
-        choice = input.next().charAt(0);
+    }
+
+    void calculation() {
+        System.out.println("Enter the amount need to be withdrawed or deposited : ");
+        System.out.print("Enter w for withdrwal and d for deposit : ");
+        choice = scan.next().charAt(0);
         if (choice == 'w') {
-            System.out.print("Enter the amount to be withdrawed : ");
-            withdraw = input.nextDouble();
-            balance = amount - withdraw;
-            System.out.println("Balance = " + balance);
+            System.out.print("Enter the amount needs to be withdrawed = ");
+            withdraw = scan.nextDouble();
+            bal = amount - withdraw;
+            System.out.println("Balance amount after withdrawal = " + bal);
         } else {
-            System.out.print("Enter the amount to be deposited : ");
-            deposit = input.nextDouble();
-            balance = amount + deposit;
-            System.out.println("Balance = " + balance);
+            System.out.print("Enter the amount needs to be deposited = ");
+            deposit = scan.nextDouble();
+            bal = amount + deposit;
+            System.out.println("Balance amount after deposition = " + bal);
         }
+    }
+};
+
+public class bank {
+    public static void main(String[] args) {
+        bal balan = new bal();
+        balan.balance(1000, 10000);
+        calc det = new calc();
+        det.details();
+        det.display();
+        det.calculation();
     }
 }
